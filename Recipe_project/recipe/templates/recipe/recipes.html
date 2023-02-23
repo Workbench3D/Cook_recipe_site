@@ -8,17 +8,23 @@
     </div>
   </div>
     <div class="container text-center">
-        <div class="row">
-            {% for dish in list_dish %}
-            <div class="col-4 padding">
-                <img src="{{ dish.images }}" class="card-img-top" alt="{{ dish.name }}">
+      {% for dish in list_dish %}
+      <div class="card mb-3 text-bg-dark" style="max-width: 1440px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{ dish.image.url }}" class="img-fluid rounded-start" alt="{{ dish.name }}">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ dish.name }}</h5>
+              <p class="card-text">{{ dish.description }}</p>
+              <p class="card-text"><small class="text-muted">{{ dish.published }}</small></p>
+              <a href="#" class="btn btn-light">Рецепт</a>
             </div>
-            <div class="col-8 padding">
-                <h5 class="card-title">{{ dish.name }}</h5>
-                <p class="card-text">{{ dish.ingredients }}</p>
-            </div>
-            {% endfor %}
+          </div>
         </div>
+      </div>
+      {% endfor %}
     </div>        
     <nav aria-label="Page navigation example" class="padding">
     <ul class="pagination justify-content-center">

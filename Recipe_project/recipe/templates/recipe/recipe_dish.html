@@ -1,0 +1,15 @@
+{% extends "layout/basic.html" %}
+{% block content %}
+<div class="container-xxl">
+    <div class="card mb-3">
+        <img src="{{ list_dish.image.url }}" class="card-img-top" alt="{{ list_dish.name }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ list_dish.name }}</h5>
+          <p class="card-text">{{ list_dish.description }}</p>
+          <p class="card-text">{{ list_dish.ingredients }}</p>
+          <p class="card-text">{{ list_dish.recipe }}</p>
+          <p class="card-text"><small class="text-muted">Опубликовал {{ list_dish.auhtor }} {{ list_dish.published }}</small></p>
+        </div>
+      </div>
+  </div>
+  {% endblock %}

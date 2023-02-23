@@ -2,26 +2,26 @@
 {% block content %}
 <div class="container-xxl">
   <div class="container text-center">
-  <div class="row">
-    <div class="col padding">
-      <h1>Последние добавленные рецепты</h1>
+    <div class="row">
+      <div class="col padding">
+        <h1>Последние добавленные рецепты</h1>
+      </div>
     </div>
-  </div>
     <div class="container text-center">
-        <div class="row"> 
-            {% for dish in list_dish %}
-            <div class="col padding">
-            <div class="card" style="width: 18rem;">
-                <img src="{{ dish.images }}" class="card-img-top" alt="{{ dish.name }}">
-                <div class="card-body">
-                  <h5 class="card-title">{{ dish.name }}</h5>
-                  <p class="card-text">{{ dish.ingredients }}</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
+      <div class="row">
+        {% for dish in list_dish %}
+        <div class="col padding">
+          <div class="card text-bg-dark" style="width: 25rem;">
+            <img src="{{ dish.image.url }}" class="card-img-top" alt="{{ dish.name }} " style="height: 300px;">
+            <div class="card-body">
+              <h5 class="card-title">{{ dish.name }}</h5>
+              <p class="card-text" style="height: 65px;">{{ dish.description|slice:":108" }}</p>
+              <a href="#" class="btn btn-light">Рецепт</a>
             </div>
           </div>
-          {% endfor %}
         </div>
-    </div>        
-</div>
-{% endblock %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endblock %}
