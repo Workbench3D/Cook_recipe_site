@@ -16,7 +16,7 @@
             <div class="card-body">
               <h5 class="card-title">{{ dish.name }}</h5>
               <p class="card-text" style="height: 65px;">{{ dish.description|slice:":108" }}</p>
-              <a href="#" class="btn btn-light">Рецепт</a>
+              <a href="{% url 'recipe_dish' dish.id %}" class="btn btn-light">Рецепт</a>
             </div>
           </div>
         </div>
