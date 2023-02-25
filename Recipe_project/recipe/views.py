@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
+from django.views.generic.detail import DetailView
 
 from .models import Recipe_dish
 
@@ -23,7 +24,9 @@ def recipes(request):
     return render(request, 'recipe/recipes.html', context)
 
 
-def recipe_dish(request, dish_id):
-    recipe_dish = Recipe_dish.objects.get(id=dish_id)
-    context = {'recipe_dish': recipe_dish}
-    return render(request, 'recipe/recipe_dish.html', context)
+class RecipeDetailView(DetailView):
+    """Контроллер-класс для представления деталей рецепта на странице"""
+    model = Recipe_dish
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs)
