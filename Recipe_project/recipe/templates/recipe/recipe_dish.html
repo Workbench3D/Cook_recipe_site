@@ -2,12 +2,12 @@
 {% block content %}
 <div class="container-xxl">
     <div class="card mb-3 text-bg-dark">
-        <img src="{{ recipe_dish.image.url }}" class="card-img-top" alt="{{ recipe_dish.name }}">
+        <img src="{{ recipedish.image.url }}" class="card-img-top" alt="{{ recipedish.name }}">
         <div class="card-body">
-          <h5 class="card-title">{{ recipe_dish.name }}</h5>
-          <p class="card-text">{{ recipe_dish.description }}</p>
-          <p class="card-text">{{ recipe_dish.ingredients }}</p>
-          <p class="card-text">{{ recipe_dish.recipe }}</p>
+          <h5 class="card-title">{{ recipedish.name }}</h5>
+          <p class="card-text">{{ recipedish.description }}</p>
+          <p class="card-text">{{ recipedish.ingredients }}</p>
+          <p class="card-text">{{ recipedish.recipe }}</p>
           <p class="card-text"><small class="text-muted">Опубликовал {{ recipe_dish.auhtor }} {{ recipe_dish.published|date:"d.m.Y H:i:s"}}</small></p>
         </div>
       </div>

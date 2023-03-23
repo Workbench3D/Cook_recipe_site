@@ -1,15 +1,20 @@
 from django import forms
 from django.forms import widgets
 
-from .models import Recipe_dish
+from .models import RecipeDish
 
 
 class RecipeForm(forms.ModelForm):
     """Форма добавления рецепта блюда"""
     class Meta:
-        model = Recipe_dish
-        fields = ('name', 'description', 'ingredients',
-                  'recipe', 'image', 'category', 'auhtor')
+        model = RecipeDish
+        fields = ('name',
+                  'description',
+                  'ingredients',
+                  'recipe',
+                  'image',
+                  'category',
+                  'auhtor')
         text_input = widgets.TextInput(attrs={'class': 'form-control'})
         text_area = widgets.Textarea(
                 attrs={'class': 'form-control', 'rows': 6})

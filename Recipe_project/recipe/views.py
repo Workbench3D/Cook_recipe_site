@@ -3,8 +3,9 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 # from django.contrib.auth.models import User
+from django.db import connection
 
-from .models import Recipe_dish
+from .models import RecipeDish
 from .form import RecipeForm
 
 
@@ -14,7 +15,7 @@ class NewAddRecipeList(ListView):
     последних добавленных рецептов
     """
     template_name = 'recipe/index.html'
-    model = Recipe_dish
+    model = RecipeDish
     ordering = '-published'
 
     def get_context_data(self, **kwargs):
@@ -26,13 +27,15 @@ class NewAddRecipeList(ListView):
         Изменяем запрос в БД для того чтобы выводить только последние 3
         добавленных рецепта
         """
-        return super().get_queryset()[:3]
+        context = super().get_queryset()[:3]
+        connection.queries
+        return context
 
 
 class RecipesListView(ListView):
     """Контроллер-класс для представления списка всех рецептов на сайте"""
     template_name = 'recipe/recipes.html'
-    model = Recipe_dish
+    model = RecipeDish
     paginate_by = 2
     ordering = '-published'
 
@@ -43,7 +46,7 @@ class RecipesListView(ListView):
 class RecipeDetailView(DetailView):
     """Контроллер-класс для представления деталей рецепта на странице"""
     template_name = 'recipe/recipe_dish.html'
-    model = Recipe_dish
+    model = RecipeDish
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(**kwargs)
