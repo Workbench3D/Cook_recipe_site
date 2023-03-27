@@ -1,10 +1,17 @@
 from django.db import models
+from django.urls import reverse
 
 
 class CategoryDish(models.Model):
     """Модель категории блюд"""
     name = models.CharField(max_length=20, primary_key=True,
                             verbose_name='Категория блюда')
+    slug = models.SlugField(max_length=255, unique=True, db_index=True,
+                            verbose_name='URL категории блюда')
+
+    def get_absolute_url(self):
+        return reverse('category_dish',
+                       kwargs={'category_dish_slug': self.slug})
 
     def __str__(self) -> str:
         return self.name
@@ -19,6 +26,8 @@ class CategoryDish(models.Model):
 class RecipeDish(models.Model):
     """Модель рецептов блюд"""
     name = models.CharField(max_length=50, verbose_name='Название блюда')
+    slug = models.SlugField(max_length=255, unique=True, db_index=True,
+                            verbose_name='URL название блюда')
     description = models.TextField(null=True, blank=True,
                                    verbose_name='Короткое описание блюда')
     ingredients = models.TextField(null=True, blank=True,
@@ -33,6 +42,9 @@ class RecipeDish(models.Model):
                                  verbose_name='Категория блюда')
     image = models.ImageField(upload_to='images',
                               verbose_name='Изображение блюда')
+
+    def get_absolute_url(self):
+        return reverse('recipe_dish', kwargs={'recipe_dish_slug': self.slug})
 
     def __str__(self) -> str:
         return self.name

@@ -9,9 +9,11 @@ class NewAddRecipeListTest(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
         number_recipe_dish = 4
-        category = CategoryDish.objects.create(name='Главный экран')
+        category = CategoryDish.objects.create(name='Главный экран',
+                                               slug='main-dish')
         for i in range(number_recipe_dish):
             RecipeDish.objects.create(name=f'Главный экран {i}',
+                                      slug=f'main-dish-{i}',
                                       description='',
                                       ingredients='',
                                       recipe='',
@@ -48,9 +50,11 @@ class RecipesListViewTest(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
         number_recipe_dish = 3
-        category = CategoryDish.objects.create(name='Все рецепты')
+        category = CategoryDish.objects.create(name='Все рецепты',
+                                               slug='all-recipe')
         for i in range(number_recipe_dish):
             RecipeDish.objects.create(name=f'Все рецепты {i}',
+                                      slug=f'all-recipe-{i}',
                                       description='',
                                       ingredients='',
                                       recipe='',
@@ -94,8 +98,10 @@ class RecipesListViewTest(TestCase):
 class RecipeDetailViewTest(TestCase):
 
     def setUp(self) -> None:
-        self.category = CategoryDish.objects.create(name='Рецепт')
+        self.category = CategoryDish.objects.create(name='Рецепт',
+                                                    slug='recipe')
         self.recipe_dish = RecipeDish.objects.create(name='Рецепт блюда',
+                                                     slug='recipe-dish',
                                                      description='',
                                                      ingredients='',
                                                      recipe='',
@@ -105,11 +111,13 @@ class RecipeDetailViewTest(TestCase):
                                                      image='images/test.webp')
 
     def test_recipe_dish_view_url_accessible_by_name(self):
-        resp = self.client.get(reverse('recipe_dish',
-                               kwargs={'pk': self.recipe_dish.pk}))
+        resp = self.client.get(
+            reverse('recipe_dish',
+                    kwargs={'recipe_dish_slug': self.recipe_dish.slug}))
         self.assertEqual(resp.status_code, 200)
 
     def test_recipe_dish_view_uses_correct_template(self):
-        resp = self.client.get(reverse('recipe_dish',
-                               kwargs={'pk': self.recipe_dish.pk}))
+        resp = self.client.get(
+            reverse('recipe_dish',
+                    kwargs={'recipe_dish_slug': self.recipe_dish.slug}))
         self.assertTemplateUsed(resp, 'recipe/recipe_dish.html')
