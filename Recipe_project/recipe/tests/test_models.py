@@ -19,6 +19,7 @@ class RecipeDishModelTest(TestCase):
 
     def test_model_label(self):
         model_label = {'name': 'Название блюда',
+                       'slug': 'URL название блюда',
                        'description': 'Короткое описание блюда',
                        'ingredients': 'Список ингредиентов',
                        'recipe': 'Рецепт приготовления',
@@ -30,14 +31,21 @@ class RecipeDishModelTest(TestCase):
             field_label = recipe_dish._meta.get_field(key).verbose_name
             self.assertEquals(field_label, value)
 
+    def test_model_save(self):
+        recipe_dish = RecipeDish.objects.get(id=1)
+        self.assertEqual(recipe_dish.slug, 'blyudo')
+
 
 class CategoryDishModelTest(TestCase):
 
     @classmethod
     def setUpTestData(cls) -> None:
-        CategoryDish.objects.create(name='Категория')
+        CategoryDish.objects.create(name='Категория',
+                                    slug='kategoriya')
 
     def test_name_label(self):
         recipe_dish = CategoryDish.objects.get(name='Категория')
-        field_label = recipe_dish._meta.get_field('name').verbose_name
-        self.assertEquals(field_label, 'Категория блюда')
+        name_label = recipe_dish._meta.get_field('name').verbose_name
+        slug_label = recipe_dish._meta.get_field('slug').verbose_name
+        self.assertEquals(name_label, 'Категория блюда')
+        self.assertEquals(slug_label, 'URL категории блюда')

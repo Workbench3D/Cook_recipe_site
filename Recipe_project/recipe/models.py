@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from recipe.services.utils import unique_slugify
 
 
 class CategoryDish(models.Model):
@@ -45,6 +46,11 @@ class RecipeDish(models.Model):
 
     def get_absolute_url(self):
         return reverse('recipe_dish', kwargs={'recipe_dish_slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = unique_slugify(self, self.name)
+        super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         return self.name
