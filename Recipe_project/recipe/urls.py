@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from . import views
 
@@ -10,5 +10,6 @@ urlpatterns = [
     path('recipe_dish/<slug:recipe_dish_slug>/',
          views.RecipeDetailView.as_view(), name='recipe_dish'),
     path('create', views.CreateRecipeView.as_view(), name='create_dish'),
+    path('api/', include('api.urls')),
     # path('registration', AddNewUser.as_view(), name='registration'),
 ]
