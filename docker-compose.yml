@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  recipe_site:
+    build: .
+    container_name: cook_recipe
+    network_mode: "host"
+    command: python Recipe_project/manage.py runserver 0.0.0.0:8000
+
+  db:
+    image: postgres:14.7-alpine
+    environment:
+      - POSTGRES_USER=hello_django
+      - POSTGRES_PASSWORD=hello_django
+      - POSTGRES_DB=hello_django_dev
