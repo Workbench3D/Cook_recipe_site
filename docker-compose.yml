@@ -3,13 +3,16 @@ version: '3.8'
 services:
   recipe_site:
     build: .
-    container_name: cook_recipe
+    container_name: cook_recipe_site
     network_mode: "host"
     command: python Recipe_project/manage.py runserver 0.0.0.0:8000
 
   db:
     image: postgres:14.7-alpine
+    container_name: db_posgresql_site
     environment:
       - POSTGRES_USER=hello_django
       - POSTGRES_PASSWORD=hello_django
       - POSTGRES_DB=hello_django_dev
+    volumes:
+      - ./Recipe_project/media/images:/Cook_recipe_site/Recipe_project/media/images
