@@ -2,7 +2,6 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
-# from django.contrib.auth.models import User
 from django.db import connection
 
 from .models import RecipeDish, CategoryDish
@@ -79,24 +78,6 @@ class RecipeDetailView(DetailView):
     def get_context_data(self, **kwargs):
         return super().get_context_data(**kwargs)
 
-
-# class AddNewUser(FormView):
-#     """Форма для добавления нового пользователя"""
-#     template_name = 'recipe/registration.html'
-#     form_class = User
-
-#     def get_context_data(self, **kwargs):
-#         return super().get_context_data(**kwargs)
-
-#     def form_valid(self, form):
-#         form.save()
-#         return super().form_valid(form)
-
-#     def get_form(self, form_class):
-#         return super().get_form(form_class)
-
-#     def get_success_url(self):
-#         return super().get_success_url()
 
 class CreateRecipeView(CreateView):
     """Форма для добавления нового блюда"""

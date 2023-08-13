@@ -1,13 +1,14 @@
-from django.db import models
+from django.db.models import Model, CharField, SlugField, TextField
+from django.db.models import DateTimeField, ForeignKey, ImageField, PROTECT
 from django.urls import reverse
 from recipe.services.utils import unique_slugify
 
 
-class CategoryDish(models.Model):
+class CategoryDish(Model):
     """Модель категории блюд"""
-    name = models.CharField(max_length=20, primary_key=True,
+    name = CharField(max_length=20, primary_key=True,
                             verbose_name='Категория блюда')
-    slug = models.SlugField(max_length=255, unique=True, db_index=True,
+    slug = SlugField(max_length=255, unique=True, db_index=True,
                             verbose_name='URL категории блюда')
 
     def get_absolute_url(self):
@@ -24,24 +25,24 @@ class CategoryDish(models.Model):
         ordering = ['name']
 
 
-class RecipeDish(models.Model):
+class RecipeDish(Model):
     """Модель рецептов блюд"""
-    name = models.CharField(max_length=50, verbose_name='Название блюда')
-    slug = models.SlugField(max_length=255, unique=True, db_index=True,
+    name = CharField(max_length=50, verbose_name='Название блюда')
+    slug = SlugField(max_length=255, unique=True, db_index=True,
                             verbose_name='URL название блюда')
-    description = models.TextField(null=True, blank=True,
+    description = TextField(null=True, blank=True,
                                    verbose_name='Короткое описание блюда')
-    ingredients = models.TextField(null=True, blank=True,
+    ingredients = TextField(null=True, blank=True,
                                    verbose_name='Список ингредиентов')
-    recipe = models.TextField(null=True, blank=True,
+    recipe = TextField(null=True, blank=True,
                               verbose_name='Рецепт приготовления')
-    published = models.DateTimeField(auto_now_add=True, db_index=True,
+    published = DateTimeField(auto_now_add=True, db_index=True,
                                      verbose_name='Дата публикации')
-    auhtor = models.CharField(max_length=50, verbose_name='Автор')
-    category = models.ForeignKey(CategoryDish, null=True,
-                                 on_delete=models.PROTECT,
+    auhtor = CharField(max_length=50, verbose_name='Автор')
+    category = ForeignKey(CategoryDish, null=True,
+                                 on_delete=PROTECT,
                                  verbose_name='Категория блюда')
-    image = models.ImageField(upload_to='images',
+    image = ImageField(upload_to='images',
                               verbose_name='Изображение блюда')
 
     def get_absolute_url(self):

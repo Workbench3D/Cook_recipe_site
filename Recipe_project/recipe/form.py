@@ -1,10 +1,10 @@
-from django import forms
-from django.forms import widgets
+from django.forms import ModelForm
+from django.forms.widgets import TextInput, Textarea, FileInput, Select
 
 from .models import RecipeDish
 
 
-class RecipeForm(forms.ModelForm):
+class RecipeForm(ModelForm):
     """Форма добавления рецепта блюда"""
     class Meta:
         model = RecipeDish
@@ -15,13 +15,10 @@ class RecipeForm(forms.ModelForm):
                   'image',
                   'category',
                   'auhtor')
-        text_input = widgets.TextInput(attrs={'class': 'form-control'})
-        text_area = widgets.Textarea(
-                attrs={'class': 'form-control', 'rows': 6})
-        file_input = widgets.FileInput(
-                attrs={'class': 'form-control', 'type': 'file'})
-        select = widgets.Select(
-                attrs={'class': 'form-select'})
+        text_input = TextInput(attrs={'class': 'form-control'})
+        text_area = Textarea(attrs={'class': 'form-control', 'rows': 6})
+        file_input = FileInput(attrs={'class': 'form-control', 'type': 'file'})
+        select = Select(attrs={'class': 'form-select'})
         widgets = {'name': text_input,
                    'description': text_area,
                    'ingredients': text_area,
