@@ -1,8 +1,10 @@
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
+from django.views import View
 from django.urls import reverse_lazy
 from django.db import connection
+from django.shortcuts import get_object_or_404
 
 from .models import RecipeDish, CategoryDish
 from .form import RecipeForm
@@ -87,3 +89,15 @@ class CreateRecipeView(CreateView):
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(**kwargs)
+
+
+class SearchRecipeView(ListView):
+    model = RecipeDish
+    template_name = 'recipe/search.html'
+ 
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = RecipeDish.objects.filter(name=query)
+        if len(object_list) == 0: 
+            print(object_list)
+        return object_list

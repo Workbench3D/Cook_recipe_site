@@ -1,7 +1,7 @@
 from django.urls import path, include
 
 from .views import IndexView, RecipesListView, CategoryListView
-from .views import RecipeDetailView, CreateRecipeView
+from .views import RecipeDetailView, CreateRecipeView, SearchRecipeView
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -11,4 +11,5 @@ urlpatterns = [
     path('recipe_dish/<slug:recipe_dish_slug>/',
          RecipeDetailView.as_view(), name='recipe_dish'),
     path('create', CreateRecipeView.as_view(), name='create_dish'),
+    path('search/', SearchRecipeView.as_view(), name='search'),
 ]

@@ -29,9 +29,9 @@
               <a class="nav-link" href="{% url 'create_dish' %}">Добавить рецепт блюда</a>
             </li>
           </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Поиск блюд" aria-label="Search">
-            <a href="#" class="btn btn-light">Поиск</a>
+          <form action="{% url 'search' %}" class="d-flex" method="get">
+            <input class="form-control me-2" name="q" type="text" placeholder="Поиск блюд" aria-label="Search">
+            <button type="submit" class="btn btn-light">Поиск</button>
           </form>
         </div>
       </div>
